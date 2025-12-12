@@ -41,12 +41,19 @@ styles.replaceSync(`
             }
         }
     }
+    [part="swatch-picker"] {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
 `);
 const template = document.createElement("template")
 template.innerHTML = `
-    <slot name="label"></slot>
-    <slot name="input"></slot>
-    <slot name="button"></slot>
+    <div part="swatch-picker">
+        <slot name="label"></slot>
+        <slot name="button"></slot>
+        <slot name="input"></slot>
+    </div>
     <dialog>
         <main>
             <div scale="">
@@ -1978,6 +1985,10 @@ export class OpenSwatchPicker extends HTMLElement {
         return this.getAttribute('output-type');
     }
 
+    get showOutputLabel() {
+        return this.getAttribute('show-output-label');
+    }
+
     oklchToOklab(oklch) {
         const [ lightness, chroma, hue, alpha = 1 ] = oklch;
         const hueRad = (hue * Math.PI) / 180; // Convert degrees to radians
@@ -2125,14 +2136,18 @@ export class OpenSwatchPicker extends HTMLElement {
             const container = document.createElement('div');
             container.setAttribute('result-container', '');
 
-            const p = document.createElement('p');
+            const output = document.createElement('span');
+            output.style.display = 'flex';
+            output.style.alignItems = 'center';
+            output.style.gap = '0.5rem';
 
-            p.innerHTML = `
-                <span style="width: 20px; height: 20px; display: inline-block; background: ${this.value}"></span>${this.value}
+            output.innerHTML = `
+                <span style="width: 20px; height: 20px; border-radius: 3px; display: inline-block; background: ${this.value}"></span>
             `;
 
-            // p.textContent = this.value;
-            container.appendChild(p);
+            if(this.showOutputLabel === 'true') output.innerHTML += `<span>${this.value}</span>`
+
+            container.appendChild(output);
             this.appendChild(container);
             container.setAttribute('slot', 'input');
         }
@@ -2167,10 +2182,7 @@ export class OpenSwatchPicker extends HTMLElement {
             button.addEventListener('click', () => {
                 const swatchStyle = getComputedStyle(button);
                 const swatchColor = swatchStyle.backgroundColor;
-
                 this.setAllValues(swatchColor, button.style.background);
-
-                console.log(this.hexValue)
             });
         })
 
