@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="../css/open-swatch.css">
+    <link rel="stylesheet" href="../css/page.css">
+    <title>Swatch Picker | open swatch - the open color system</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body>
+    <header hero>
+      <h1>Open Swatch</h1>
+      <div>
+        <p>Swatch picker</p>
+        <a href="/">&lt; Back to openswatch</a>
+      </div>
+      <section>
+       
+      </section>
+    </header>
+    <main>
+      <section>
+        <h2>Default use</h2>
+        <p>By default the picker will return the variable </p>
+        <h3>Example</h3>
+        <open-swatch-picker></open-swatch-picker>
+        <h3>Usage</h3>
+        <pre>
+          <code>
+            &lt;open-swatch-picker&gt;&lt;/open-swatch-picker&gt;
+          </code>
+        </pre>
+      </section>
+      <section>
+        <h2>Return Hex Code</h2>
+        <h3>Example</h3>
+        <open-swatch-picker output-type="hex"></open-swatch-picker>
+        <h3>Usage</h3>
+        <pre>
+          <code>
+            &lt;open-swatch-picker output-type="hex"&gt;&lt;/open-swatch-picker&gt;
+          </code>
+        </pre>
+      </section>
+      <section>
+        <h2>Return RGB</h2>
+        <h3>Example</h3>
+        <open-swatch-picker output-type="rgb"></open-swatch-picker>
+        <h3>Usage</h3>
+        <pre>
+          <code>
+            &lt;open-swatch-picker output-type="rgb"&gt;&lt;/open-swatch-picker&gt;
+          </code>
+        </pre>
+      </section>
+      <section>
+        <h2>Use your own button</h2>
+        <h3>Example</h3>
+        <open-swatch-picker>
+          <button slot="button">select a color</button>
+        </open-swatch-picker>
+        <h3>Usage</h3>
+        <pre>
+          <code>
+            &lt;open-swatch-picker&gt;&lt;/open-swatch-picker&gt;
+          </code>
+        </pre>
+      </section>
+      <section>
+        <h2>Add a label</h2>
+        <h3>Example</h3>
+        <open-swatch-picker>
+          <label slot="label">Choose color</label>
+          <button slot="button">select</button>
+        </open-swatch-picker>
+        <h3>Usage</h3>
+        <pre>
+          <code>
+            &lt;open-swatch-picker&gt;&lt;/open-swatch-picker&gt;
+          </code>
+        </pre>
+      </section>
+      
+    </main>
+  </body>
+  <script src="open-swatch-picker.js" defer type="module"></script>
+
+</html>
