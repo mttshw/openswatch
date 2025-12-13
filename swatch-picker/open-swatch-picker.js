@@ -69,12 +69,11 @@ const makeColorSwatch = (name, i) => /* html */`
 
 const template = document.createElement("template")
 template.innerHTML = /* html */`
-    <div part="swatch-picker">
+    <button part="swatch-picker" commandfor="select-color-dialog" command="show-modal">
         <slot name="label"></slot>
-        <slot name="button"></slot>
         <slot name="input"></slot>
-    </div>
-    <dialog closedby="any">
+    </button>
+    <dialog closedby="any" id="select-color-dialog">
         <main>
             ${scales.map(scale=>makeScale(scale)).join('')}
         </main>
@@ -281,20 +280,9 @@ export class OpenSwatchPicker extends HTMLElement {
         
         this.dialog = this.shadowRoot.querySelector("dialog");
 
-        const slot = this.shadowRoot.querySelector('slot[name=button]');
-        const assignedNodes = slot.assignedNodes();
-        let buttonElement;
-        if( assignedNodes.length > 0 ) {
-            buttonElement = assignedNodes[0];
-            
-        } else {
-            buttonElement = document.createElement('button');
-            buttonElement.textContent = 'Choose Color';
-            buttonElement.setAttribute('slot', 'button');
-            this.appendChild(buttonElement);
-        }
-        buttonElement.commandForElement = this.dialog;
-
+        const buttonElement = this.shadowRoot.querySelector('[part="swatch-picker"]');
+        
+        buttonElement.textContent = 'Choose Color';
 
         this.shadowRoot.querySelectorAll('[swatch] button').forEach((button) => {
             button.addEventListener('click', () => {
@@ -303,16 +291,6 @@ export class OpenSwatchPicker extends HTMLElement {
                 this.setAllValues(swatchColor, button.style.background);
             });
         })
-
-        this.dialog.addEventListener('click', function(event) {
-            if(!this.dialog) return;
-            const rect = this.dialog.getBoundingClientRect();
-            const isInDialog = (rect.top <= event.clientY && event.clientY <= rect.top + rect.height &&
-                rect.left <= event.clientX && event.clientX <= rect.left + rect.width);
-            if (!isInDialog) {
-                this.dialog.close();
-            }
-        });
 
     }
 
