@@ -1,7 +1,7 @@
 
 
 const styles = new CSSStyleSheet()
-styles.replaceSync(`
+styles.replaceSync(/* css */`
     dialog {
         border-radius: 1rem;
 
