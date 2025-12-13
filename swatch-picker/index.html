@@ -56,49 +56,30 @@
       </section>
       <hr>
       <section>
-        <h2>Use your own button</h2>
+        <h2>Hide output</h2>
+        <p>Default: false. To hide, just dont set `show output label`;</p>
         <h3>Example</h3>
         <open-swatch-picker>
-          <button slot="button">select a color</button>
         </open-swatch-picker>
         <h3>Usage</h3>
         <pre>
           <code>
             &lt;open-swatch-picker&gt;
-              &lt;button slot="button"&gt;select a color&lt;/button&gt;
             &lt;/open-swatch-picker&gt;
           </code>
         </pre>
       </section>
-      <hr>
+
       <section>
-        <h2>Add a label</h2>
+        <h2>Custom label</h2>
+        <p>Default: false. To hide, just dont set `show output label`;</p>
         <h3>Example</h3>
-        <open-swatch-picker>
-          <span slot="label">Choose color span</span>
+        <open-swatch-picker label="Pick a color">
         </open-swatch-picker>
         <h3>Usage</h3>
         <pre>
           <code>
-            &lt;open-swatch-picker&gt;
-              &lt;span slot="label"&gt;Choose color&lt;/span&gt;
-            &lt;/open-swatch-picker&gt;
-          </code>
-        </pre>
-      </section>
-      <hr>
-      <section>
-        <h2>Show output value</h2>
-        <p>Default: false</p>
-        <h3>Example</h3>
-        <open-swatch-picker show-output-label="true">
-          <label slot="label">Choose color</label>
-        </open-swatch-picker>
-        <h3>Usage</h3>
-        <pre>
-          <code>
-            &lt;open-swatch-picker show-output-label="true"&gt;
-              &lt;label slot="label"&gt;Choose color&lt;/label&gt;
+            &lt;open-swatch-picker label="Pick a color"&gt;
             &lt;/open-swatch-picker&gt;
           </code>
         </pre>
