@@ -2174,9 +2174,6 @@ export class OpenSwatchPicker extends HTMLElement {
             this.appendChild(buttonElement);
         }
 
-        buttonElement.addEventListener("click", () => {
-            this.dialog.showModal();
-        });
 
         this.shadowRoot.querySelectorAll('[swatch] button').forEach((button) => {
             button.addEventListener('click', () => {
