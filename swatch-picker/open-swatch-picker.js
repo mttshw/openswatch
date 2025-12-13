@@ -1964,7 +1964,7 @@ export class OpenSwatchPicker extends HTMLElement {
         this._internals = this.attachInternals();
     }
 
-    _value = '';
+    #value = '';
     dialog = null;
     hexValue = '';
     hexValue = '';
