@@ -48,7 +48,7 @@ styles.replaceSync(`
     }
 `);
 const template = document.createElement("template")
-template.innerHTML = `
+template.innerHTML = /* html */`
     <div part="swatch-picker">
         <slot name="label"></slot>
         <slot name="button"></slot>
