@@ -1958,11 +1958,7 @@ export class OpenSwatchPicker extends HTMLElement {
         customElements.define(tagName, this)
     }
     shadowRoot = this.attachShadow({ mode: "open" });
-
-    constructor(){
-        super();
-        this._internals = this.attachInternals();
-    }
+    #internals = this.attachInternals();
 
     #value = '';
     dialog = null;
