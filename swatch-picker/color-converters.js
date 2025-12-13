@@ -78,21 +78,16 @@
     }
 
     export const oklchToHex = (oklch) => {
-        console.log('oklch',oklch);
+        
         const oklchOb = oklch.match(/oklch\(([^)]+)\)/)[1].replaceAll(' ', ',').split(',').map(Number);
-        console.log('oklchOb',oklchOb);
 
         const oklab = oklchToOklab(oklchOb);
-        console.log('oklab',oklab);
 
         const xyzD65 = oklabToXyzD65(oklab);
-        console.log('xyzD65',xyzD65);
 
         const linearRgb = xyzD65ToLinearRgb(xyzD65);
-        console.log('linearRgb',linearRgb);
 
         const srgb = linearRgbToSrgb(linearRgb);
-        console.log('srgb',srgb);
 
         const r = Math.round(srgb.red);
         const g = Math.round(srgb.green);
