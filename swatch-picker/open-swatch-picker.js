@@ -282,7 +282,13 @@ export class OpenSwatchPicker extends HTMLElement {
 
         const buttonElement = this.shadowRoot.querySelector('[part="swatch-picker"]');
         
-        buttonElement.textContent = 'Choose Color';
+        const labelSlot = this.shadowRoot.querySelector('slot[name="label"]');
+        if (labelSlot.assignedNodes().length === 0) {
+            const defaultLabel = document.createElement('span');
+            defaultLabel.textContent = 'Choose Color';
+            defaultLabel.setAttribute('slot', 'label');
+            this.appendChild(defaultLabel);
+        }
 
         this.shadowRoot.querySelectorAll('[swatch] button').forEach((button) => {
             button.addEventListener('click', () => {
