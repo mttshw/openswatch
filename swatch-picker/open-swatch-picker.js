@@ -31,7 +31,7 @@ styles.replaceSync(/* css */`
                     cursor: pointer;
                     outline: 2px solid transparent;
 
-                    &:hover {
+                    &:hover, &:focus {
                         outline: 2px solid;
                     }
                 }
@@ -74,7 +74,7 @@ template.innerHTML = /* html */`
         <slot name="button"></slot>
         <slot name="input"></slot>
     </div>
-    <dialog>
+    <dialog closedby="any">
         <main>
             ${scales.map(scale=>makeScale(scale)).join('')}
         </main>
@@ -293,9 +293,7 @@ export class OpenSwatchPicker extends HTMLElement {
             buttonElement.setAttribute('slot', 'button');
             this.appendChild(buttonElement);
         }
-        buttonElement.addEventListener("click", () => {
-            this.dialog.showModal();
-        });
+        buttonElement.commandForElement = this.dialog;
 
 
         this.shadowRoot.querySelectorAll('[swatch] button').forEach((button) => {
