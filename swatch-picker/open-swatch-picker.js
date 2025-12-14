@@ -189,22 +189,21 @@ export class OpenSwatchPicker extends HTMLElement {
         
         this.dialog = this.shadowRoot.querySelector("dialog");
 
-        // commandfor not working for me in FF (fine in chrome), so keeping event listener for now
-        this.shadowRoot.querySelector('[part="swatch-picker"]').addEventListener('click', () => {
-            this.dialog.showModal();
-        });
-        
+       
         this.shadowRoot
           .querySelector('span[part="label"]')
-          .textContent = this.getAttribute('label') || 'Choose Color'
+          .textContent = this.getAttribute('label') || 'Choose Color';
 
-        this.shadowRoot.querySelectorAll('[swatch] button').forEach((button) => {
-            button.addEventListener('click', () => {
-                const swatchStyle = getComputedStyle(button);
+        this.shadowRoot.addEventListener('click', (e) => {
+            if( e.target.localName === 'button' && e.target.parentElement.getAttribute('swatch') === '') {
+                const swatchStyle = getComputedStyle(e.target);
                 const swatchColor = swatchStyle.backgroundColor;
-                this.setAllValues(swatchColor, button.style.background);
-            });
-        })
+                this.setAllValues(swatchColor, e.target.style.background);
+            } else {
+                // commandfor not working for me in FF (fine in chrome), so keeping event listener for now
+                this.dialog.showModal();
+            }
+        });
 
     }
 
