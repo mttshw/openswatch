@@ -169,6 +169,18 @@ export class OpenSwatchPicker extends HTMLElement {
         output.setAttribute('active', '');
         if(this.hideOutputLabel === 'true') output.setAttribute('hide-label', '');
         
+        this.updateFormControls();
+        
+    }
+
+    updateFormControls() {
+        for (const el of this.getRootNode().querySelectorAll('input[open-swatch-picker],output[for]')) {
+            if (el instanceof HTMLInputElement && el.getAttribute('open-swatch-picker') == this.id) {
+                el.value = this.value
+            } else if (el instanceof HTMLOutputElement && el.htmlFor == this.id) {
+                el.textContent = this.value
+            }
+        }
     }
 
     connectedCallback() {
