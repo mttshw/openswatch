@@ -51,8 +51,7 @@ styles.replaceSync(/* css */`
 const scales = ['neutral', 'stone', 'slate', 'red', 'orange', 'amber', 'gold', 'yellow', 'lime', 'green', 'emerald', 'teal', 'cyan', 'sky', 'blue', 'violet', 'purple', 'fuchsia', 'magenta', 'pink', 'rose'];
     
 const makeScale = (name) => {
-    let length = 12;
-    if( name === 'neutral' ) length = 13;
+    let length = name === 'neutral' ? 13 : 12;
     return /* html */`
     <div scale>
         <h2>${name}</h2>
