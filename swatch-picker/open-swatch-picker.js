@@ -61,9 +61,7 @@ const makeScale = (name) => {
 
 const makeColorSwatch = (name, i) => /* html */`
     <div swatch>
-        <button aria-label="Copy ${name} 1" style="background:var(--${name}-${i})">
-            &nbsp;
-        </button>
+        <button aria-label="Copy ${name} 1" style="background:var(--${name}-${i})"></button>
         <span>${name} ${i}</span>
     </div>`
 
