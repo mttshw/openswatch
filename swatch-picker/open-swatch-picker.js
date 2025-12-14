@@ -176,14 +176,9 @@ export class OpenSwatchPicker extends HTMLElement {
             this.dialog.showModal();
         });
         
-        if( this.hasAttribute('label') ) {
-            const labelText = this.getAttribute('label');
-            const labelSpan = this.shadowRoot.querySelector('span[part="label"]');
-            labelSpan.textContent = labelText;
-        } else {
-            const labelSpan = this.shadowRoot.querySelector('span[part="label"]');
-            labelSpan.textContent = 'Choose Color';
-        }
+        this.shadowRoot
+          .querySelector('span[part="label"]')
+          .textContent = this.getAttribute('label') || 'Choose Color'
 
         this.shadowRoot.querySelectorAll('[swatch] button').forEach((button) => {
             button.addEventListener('click', () => {
