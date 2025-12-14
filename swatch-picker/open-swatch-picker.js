@@ -125,7 +125,7 @@ export class OpenSwatchPicker extends HTMLElement {
 
 
     onValueChange(newValue) {
-        if( newValue === null || newValue === undefined || newValue === '' ) return;
+        if (!newValue) return;
         const labelText = this.shadowRoot.querySelector('[part=label]');
         labelText.style.display = 'none';
         this.updateLabel();
