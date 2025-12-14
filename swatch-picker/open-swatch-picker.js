@@ -47,6 +47,31 @@ styles.replaceSync(/* css */`
         align-items: center;
         gap: 1rem;
     }
+    [part="output"] {
+        display: none;
+        align-items: center;
+        gap: 0.5rem;
+
+        &[hide-label] {
+            & [part="output-indicator"]{
+                width: 60px;
+            }
+            & [part="output-value"]{
+                display: none;
+            }
+        }
+        &[active] {
+            display: flex;
+        }
+    }
+    [part="output-indicator"] {
+        width: 20px;
+        height: 20px; 
+        border-radius: 3px; 
+        display: inline-block;
+    }
+    
+    
 `);
 const scales = ['neutral', 'stone', 'slate', 'red', 'orange', 'amber', 'gold', 'yellow', 'lime', 'green', 'emerald', 'teal', 'cyan', 'sky', 'blue', 'violet', 'purple', 'fuchsia', 'magenta', 'pink', 'rose'];
     
@@ -69,7 +94,10 @@ const template = document.createElement("template")
 template.innerHTML = /* html */`
     <button part="swatch-picker" commandfor="select-color-dialog" command="show-modal">
         <span part="label"></span>
-        <slot name="output"></slot>
+        <span part="output">
+            <span part="output-indicator"></span>
+            <span part="output-value"></span>
+        </span>
     </button>
     <dialog closedby="any" id="select-color-dialog">
         <main>
@@ -104,8 +132,8 @@ export class OpenSwatchPicker extends HTMLElement {
         return this.getAttribute('output-type');
     }
 
-    get showOutputLabel() {
-        return this.getAttribute('show-output-label');
+    get hideOutputLabel() {
+        return this.getAttribute('hide-output-label');
     }
 
     setAllValues(oklch, variableName) {
@@ -131,36 +159,13 @@ export class OpenSwatchPicker extends HTMLElement {
     }
 
     updateLabel() {
-        const slot = this.shadowRoot.querySelector('slot[name=output]');
-        const assignedNodes = slot.assignedNodes();
+        this.shadowRoot.querySelector('[part=output-value]').textContent = this.value;
+        this.shadowRoot.querySelector('[part=output-indicator]').style.background = this.value;
+
+        const output = this.shadowRoot.querySelector('[part=output]')
+        output.setAttribute('active', '');
+        if(this.hideOutputLabel === 'true') output.setAttribute('hide-label', '');
         
-        if (assignedNodes.length > 0 && !assignedNodes[0].hasAttribute('result-container')) {
-            const inputElement = assignedNodes[0];
-            inputElement.textContent = this.value;
-            
-        } else {
-            assignedNodes.forEach(node => node.remove());
-
-            const container = document.createElement('div');
-            container.setAttribute('result-container', '');
-
-            const output = document.createElement('span');
-            output.style.display = 'flex';
-            output.style.alignItems = 'center';
-            output.style.gap = '0.5rem';
-
-            const showOutputLabel = this.showOutputLabel === 'true';
-
-            output.innerHTML = `
-                <span style="width: ${showOutputLabel ? '20px' : '60px'}; height: 20px; border-radius: 3px; display: inline-block; background: ${this.value}"></span>
-            `;
-
-            if(showOutputLabel) output.innerHTML += `<span>${this.value}</span>`
-
-            container.appendChild(output);
-            this.appendChild(container);
-            container.setAttribute('slot', 'output');
-        }
     }
 
     connectedCallback() {
@@ -169,8 +174,8 @@ export class OpenSwatchPicker extends HTMLElement {
         
         this.dialog = this.shadowRoot.querySelector("dialog");
 
-        const buttonElement = this.shadowRoot.querySelector('[part="swatch-picker"]');
-        buttonElement.addEventListener('click', () => {
+        // commandfor not working for me in FF (fine in chrome), so keeping event listener for now
+        this.shadowRoot.querySelector('[part="swatch-picker"]').addEventListener('click', () => {
             this.dialog.showModal();
         });
         
