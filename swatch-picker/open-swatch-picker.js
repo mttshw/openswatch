@@ -11,20 +11,20 @@ styles.replaceSync(/* css */`
             opacity: 0.75;
         }
 
-        & div[scale] {
+        div[scale] {
             display: flex;
 
-            & h2 {
+            h2 {
                 display: none;
             }
-            & h2[active] {
+            h2[active] {
                 grid-column: span 13;
                 display: block;
             }
-            & div[swatch] {
+            div[swatch] {
                 margin: 2px;
 
-                & button {
+                button {
                     width: 2rem;
                     height: 2rem;
                     border: none;
@@ -36,7 +36,7 @@ styles.replaceSync(/* css */`
                         outline: 2px solid;
                     }
                 }
-                & span {
+                span {
                     display: none;
                 }
             }
