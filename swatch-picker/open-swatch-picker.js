@@ -113,9 +113,7 @@ export class OpenSwatchPicker extends HTMLElement {
 
     #value = '';
     dialog = null;
-    hexValue = '';
-    hexValue = '';
-    rgbValue = '';
+    oklchValue = '';
 
     get value() {
         return this.#value;
@@ -136,11 +134,16 @@ export class OpenSwatchPicker extends HTMLElement {
         return this.getAttribute('hide-output-label');
     }
 
-    setAllValues(oklch, variableName) {
-        this.hexValue = oklchToHex(oklch);
-        this.rgbValue = oklchToRgb(oklch);
+    get rgbValue() { return oklchToRgb(this.oklchValue) }
 
-        if( this.outputType === 'hex' ) {
+    get hexValue() { return oklchToHex(this.oklchValue) }
+
+    setAllValues(oklch, variableName) {
+        this.oklchValue = oklch;
+
+        if( this.outputType === 'oklch' ) {
+            this.value = oklch;
+        } else if( this.outputType === 'hex' ) {
             this.value = this.hexValue;
         } else if( this.outputType === 'rgb' ) {
             this.value = this.rgbValue;
