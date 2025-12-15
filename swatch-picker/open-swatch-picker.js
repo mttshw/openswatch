@@ -138,20 +138,6 @@ export class OpenSwatchPicker extends HTMLElement {
 
     get hexValue() { return oklchToHex(this.oklchValue) }
 
-    setAllValues(oklch, variableName) {
-        this.oklchValue = oklch;
-
-        if( this.outputType === 'oklch' ) {
-            this.value = oklch;
-        } else if( this.outputType === 'hex' ) {
-            this.value = this.hexValue;
-        } else if( this.outputType === 'rgb' ) {
-            this.value = this.rgbValue;
-        } else {
-            this.value = variableName;
-        }
-    }
-
 
     onValueChange(newValue) {
         if (!newValue) return;
@@ -162,8 +148,15 @@ export class OpenSwatchPicker extends HTMLElement {
     }
 
     updateLabel() {
-        this.shadowRoot.querySelector('[part=output-value]').textContent = this.value;
-        this.shadowRoot.querySelector('[part=output-indicator]').style.background = this.value;
+
+        let outputVal = this.value; 
+        
+        if(this.outputType === 'hex') outputVal = this.hexValue;
+        if(this.outputType === 'rgb') outputVal = this.rgbValue;
+        if(this.outputType === 'oklch') outputVal = this.oklchValue;
+
+        this.shadowRoot.querySelector('[part=output-value]').textContent = outputVal;
+        this.shadowRoot.querySelector('[part=output-indicator]').style.background = outputVal;
 
         const output = this.shadowRoot.querySelector('[part=output]')
         output.setAttribute('active', '');
@@ -195,14 +188,14 @@ export class OpenSwatchPicker extends HTMLElement {
           .textContent = this.getAttribute('label') || 'Choose Color';
 
         this.shadowRoot.addEventListener('click', (e) => {
-            if(e.target.matches('button') && e.target.closest('swatch')) {
+
+            if(e.target.matches('button') && e.target.closest('[swatch]')) {
                 const swatchStyle = getComputedStyle(e.target);
                 const swatchColor = swatchStyle.backgroundColor;
-                this.setAllValues(swatchColor, e.target.style.background);
-            } else {
-                // commandfor not working for me in FF (fine in chrome), so keeping event listener for now
-                this.dialog.showModal();
-            }
+
+                this.oklchValue = swatchColor;
+                this.value = e.target.style.background;
+            } 
         });
 
     }
