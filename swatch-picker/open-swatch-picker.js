@@ -195,7 +195,7 @@ export class OpenSwatchPicker extends HTMLElement {
           .textContent = this.getAttribute('label') || 'Choose Color';
 
         this.shadowRoot.addEventListener('click', (e) => {
-            if( e.target.localName === 'button' && e.target.parentElement.getAttribute('swatch') === '') {
+            if(e.target.matches('button') && e.target.closest('swatch')) {
                 const swatchStyle = getComputedStyle(e.target);
                 const swatchColor = swatchStyle.backgroundColor;
                 this.setAllValues(swatchColor, e.target.style.background);
